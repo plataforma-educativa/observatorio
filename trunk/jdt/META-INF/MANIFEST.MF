@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Observatorio Jdt
+Bundle-SymbolicName: ar.com.comunidadesfera.observatorio.jdt;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Mariano Tugnarelli
+Fragment-Host: org.eclipse.jdt.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: ar.com.comunidadesfera.observatorio.jdt

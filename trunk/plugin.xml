@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            icon="iconos/observatorio.png"
+            id="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            name="Observatorio">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="ar.com.comunidadesfera.observatorio.categoria"
+            name="Observatorio">
+      </category>
+      <view
+            category="ar.com.comunidadesfera.observatorio.categoria"
+            class="org.eclipse.ui.navigator.CommonNavigator"
+            icon="iconos/observatorio.png"
+            id="ar.com.comunidadesfera.observatorio.explorador"
+            name="Explorador"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewer
+            viewerId="ar.com.comunidadesfera.observatorio.explorador">
+         <options>
+            <property
+                  name="org.eclipse.ui.navigator.hideLinkWithEditorAction"
+                  value="false">
+            </property>
+            <property
+                  name="org.eclipse.ui.navigator.hideAvailableCustomizationsDialog"
+                  value="false">
+            </property>
+         </options>
+         <popupMenu allowsPlatformContributions="false" id="ar.com.comunidadesfera.observatorio.explorador.popupMenu">
+               <insertionPoint name="group.observatorio" separator="true"/>
+               <insertionPoint name="group.new" separator="true"/>
+               <insertionPoint name="group.open" separator="true"/>
+               <insertionPoint name="group.openWith" separator="true"/>
+               <insertionPoint name="group.search" separator="true"/> 
+               <insertionPoint name="group.edit" separator="true"/>
+               <insertionPoint name="group.reorganize" separator="true"/>
+               
+               <insertionPoint name="group.goto" separator="true"/>
+               <insertionPoint name="group.show" separator="true"/>
+               <insertionPoint name="group.port" separator="true"/>
+               <insertionPoint name="group.generate" separator="true"/>
+               <insertionPoint name="group.build" separator="true"/>
+               <insertionPoint name="additions" separator="true"/>
+               <insertionPoint name="group.properties" separator="true"/>
+         </popupMenu>
+      </viewer>
+      <viewerContentBinding
+            viewerId="ar.com.comunidadesfera.observatorio.explorador">
+         <includes>
+            <contentExtension pattern="org.eclipse.jdt.java.ui.javaContent" isRoot="true"/>
+            <contentExtension pattern="org.eclipse.jdt.java.ui.filters.*"/>
+         	<contentExtension pattern="org.eclipse.jdt.java.ui.javaLinkHelper" />
+            <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
+            <contentExtension pattern="ar.com.comunidadesfera.observatorio.acciones" />
+            <contentExtension pattern="ar.com.comunidadesfera.observatorio.asistentes.*" />
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding
+            viewerId="ar.com.comunidadesfera.observatorio.explorador">
+            <includes>
+                <actionExtension pattern="ar.com.comunidadesfera.observatorio.acciones"/>
+            </includes>
+      </viewerActionBinding>
+   </extension>
+   <extension point="org.eclipse.ui.navigator.navigatorContent">
+        <actionProvider
+              class="ar.com.comunidadesfera.observatorio.ProveedorDeAccionesObservatorio" 
+              id="ar.com.comunidadesfera.observatorio.acciones"
+              priority="highest">
+              <enablement>
+                <or/>
+              </enablement>
+        </actionProvider>
+        <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto" 
+            menuGroupId="group.observatorio">
+            <enablement>
+                <or/>
+             </enablement>
+        </commonWizard>
+   </extension>
+   <!--
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <actionProvider 
+            class="ar.com.comunidadesfera.observatorio.jdt.ProveedorDeAccionesNulas"
+            id="org.eclipse.ui.navigator.navigatorContent.Acciones"
+            overrides="org.eclipse.jdt.ui.navigator.actions.RefactorActions"
+            priority="highest">
+     </actionProvider>
+   </extension>
+   -->
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="ar.com.comunidadesfera.observatorio.asistentes.categoria"
+            name="Observatorio">
+      </category>
+      <wizard
+            category="ar.com.comunidadesfera.observatorio.asistentes.categoria"
+            class="ar.com.comunidadesfera.observatorio.jdt.AsistenteCrearClaseJava"
+            id="ar.com.comunidadesfera.observatorio.asistentes.crearClase"
+            name="Crear Clase"
+            icon="iconos/asistente-crear-clase.gif" 
+            finalPerspective="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            preferredPerspectives="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            hasPages="true">
+      </wizard>
+      <wizard
+            category="ar.com.comunidadesfera.observatorio.asistentes.categoria"
+            class="ar.com.comunidadesfera.observatorio.jdt.AsistenteCrearProyectoJava"
+            id="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto"
+            name="Crear Proyecto"
+            icon="iconos/asistente-crear-proyecto.gif" 
+            finalPerspective="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            preferredPerspectives="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            project="true"
+            hasPages="true">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio">
+         <view
+               closeable="false"
+               id="ar.com.comunidadesfera.observatorio.explorador"
+               minimized="false"
+               ratio="0.25"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               visible="true">
+         </view>
+         <view
+               id="org.eclipse.jdt.junit.ResultView"
+               minimized="false"
+               relationship="stack"
+               relative="ar.com.comunidadesfera.observatorio.explorador"
+               visible="false">
+         </view>
+         <!--
+         <view
+               id="edu.rice.cs.drjava.InteractionsView"
+               minimized="false"
+               ratio="0.30"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               visible="true">
+         </view>
+         -->
+         <view
+               closeable="true"
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.70"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss"
+               visible="true">
+         </view>
+         <view
+               id="org.eclipse.ui.views.ContentOutline"
+               minimized="false"
+               ratio="0.50"
+               relationship="bottom"
+               relative="ar.com.comunidadesfera.observatorio.explorador">
+         </view>
+         <viewShortcut
+               id="org.eclipse.ui.navigator.ProjectExplorer">
+         </viewShortcut>
+         <viewShortcut
+               id="org.eclipse.ui.views.ProblemView">
+         </viewShortcut>
+         <viewShortcut
+               id="org.eclipse.ui.views.ResourceNavigator">
+         </viewShortcut>
+         <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearClase"/>
+         <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto"/>
+         <!--
+         <hiddenMenuItem id="navigate"/>
+         <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
+         -->
+      </perspectiveExtension>
+   </extension>
+   <!--
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution 
+         allPopups="false"
+         locationURI="popup:ar.com.comunidadesfera.observatorio.explorador.popupMenu">
+        <command commandId="org.eclipse.ui.newWizard" 
+                 label="Crear Clase" icon="iconos/asistente-crear-proyecto.gif"
+                 id="ar.com.comunidadesfera.observatorio.comandos.crearProyecto"
+                 >
+            <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto" />
+         </command>   
+        <command commandId="org.eclipse.ui.newWizard" 
+                 label="Crear Clase" icon="iconos/asistente-crear-clase.gif"
+                 id="ar.com.comunidadesfera.observatorio.comandos.crearClase"
+                 >
+            <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearClase" />
+         </command>
+            <separator
+                name="observatorio.separator1" visible="true">
+            </separator>
+   </menuContribution>
+   </extension>
+   -->
+</plugin>
