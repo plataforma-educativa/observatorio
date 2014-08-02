@@ -67,6 +67,9 @@
             <contentExtension pattern="ar.com.comunidadesfera.observatorio.acciones" />
             <contentExtension pattern="ar.com.comunidadesfera.observatorio.asistentes.*" />
          </includes>
+         <excludes>
+            <contentExtension pattern="org.eclipse.jdt.java.ui.filters.HideEmptyInnerPackages" />
+         </excludes>
       </viewerContentBinding>
       <viewerActionBinding
             viewerId="ar.com.comunidadesfera.observatorio.explorador">
