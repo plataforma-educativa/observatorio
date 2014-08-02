@@ -12,17 +12,20 @@
  *******************************************************************************/
 package ar.com.comunidadesfera.observatorio.jdt;
 
+import java.util.Arrays;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 public class PaginaAsistenteCrearProyectoJava extends NewJavaProjectWizardPageOne {
-
+   
     @Override
     protected Control createInfoControl(Composite composite) {
 

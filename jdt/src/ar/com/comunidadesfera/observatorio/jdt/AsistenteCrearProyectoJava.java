@@ -20,4 +20,5 @@ public class AsistenteCrearProyectoJava extends JavaProjectWizard {
         
         super(new PaginaAsistenteCrearProyectoJava(), null);
     }
+    
 }

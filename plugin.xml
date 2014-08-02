@@ -193,6 +193,13 @@
          -->
       </perspectiveExtension>
    </extension>
+   <extension
+         point="org.eclipse.jdt.core.classpathContainerInitializer">
+      <classpathContainerInitializer
+            class="ar.com.comunidadesfera.observatorio.InicializadorDeDependenciasBatallaEspacial"
+            id="ar.com.comunidadesfera.observatorio.BatallaEspacial">
+      </classpathContainerInitializer>
+   </extension>
    <!--
    <extension point="org.eclipse.ui.menus">
       <menuContribution 

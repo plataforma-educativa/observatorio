@@ -1,11 +1,16 @@
 package ar.com.comunidadesfera.observatorio;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 
 import ar.com.comunidadesfera.observatorio.jdt.AbrirAsistenteCrearClaseJava;
+import ar.com.comunidadesfera.observatorio.jdt.AbrirAsistenteCrearProyectoBatallaEspacial;
 import ar.com.comunidadesfera.observatorio.jdt.AbrirAsistenteCrearProyectoJava;
 
 public class ProveedorDeAccionesObservatorio extends CommonActionProvider {
@@ -14,17 +19,16 @@ public class ProveedorDeAccionesObservatorio extends CommonActionProvider {
     
     private boolean contribute = false;
 
-    private AbrirAsistenteCrearProyectoJava abrirAsistenteCrearProyectoJava;
-    private AbrirAsistenteCrearClaseJava abrirAsistenteCrearClaseJava;
-
+    private List<IAction> actions = new LinkedList<IAction>();
 	
 	@Override
 	public void init(ICommonActionExtensionSite aSite) {
 	    
         if (aSite.getViewSite() instanceof ICommonViewerWorkbenchSite) {
 
-            abrirAsistenteCrearProyectoJava = new AbrirAsistenteCrearProyectoJava();
-            abrirAsistenteCrearClaseJava = new AbrirAsistenteCrearClaseJava();
+            actions.add(new AbrirAsistenteCrearProyectoBatallaEspacial());
+            actions.add(new AbrirAsistenteCrearProyectoJava());
+            actions.add(new AbrirAsistenteCrearClaseJava());
             contribute = true;
         }
 	}
@@ -34,8 +38,11 @@ public class ProveedorDeAccionesObservatorio extends CommonActionProvider {
 	public void fillContextMenu(IMenuManager menu) {
 		
 		if (contribute) {
-		    menu.appendToGroup("group.observatorio", abrirAsistenteCrearProyectoJava);
-		    menu.appendToGroup("group.observatorio", abrirAsistenteCrearClaseJava);
+		    
+		    for (IAction action : actions) {
+		        
+		        menu.appendToGroup(GROUP, action);
+		    }
 		}
 	}
 	

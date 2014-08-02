@@ -18,29 +18,33 @@ import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.actions.ActionMessages;
 import org.eclipse.jdt.ui.actions.AbstractOpenWizardAction;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.PlatformUI;
 
+public class AbrirAsistenteCrearProyectoBatallaEspacial extends AbstractOpenWizardAction {
 
-public class AbrirAsistenteCrearClaseJava extends AbstractOpenWizardAction {
-
-    private static final String ID = "ar.com.comunidadesfera.observatorio.acciones.AbrirAsistenteCrearClaseJava";  //$NON-NLS-1$
-    
-    public AbrirAsistenteCrearClaseJava() {
+    private static final String ID = "ar.com.comunidadesfera.observatorio.acciones.AbrirAsistenteCrearProyectoBatallaEspacial";  //$NON-NLS-1$
+     
+    public AbrirAsistenteCrearProyectoBatallaEspacial() {
 
         setId(ID);
-        setText("Crear Clase");
-        setDescription(ActionMessages.OpenNewClassWizardAction_description);
-        setToolTipText(ActionMessages.OpenNewClassWizardAction_tooltip);
-        setImageDescriptor(JavaPluginImages.DESC_WIZBAN_NEWCLASS);
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IJavaHelpContextIds.OPEN_CLASS_WIZARD_ACTION);
-        setShell(JavaPlugin.getActiveWorkbenchShell());        
-    }
-    
-    @Override
-    protected INewWizard createWizard() throws CoreException {
-        
-        return new AsistenteCrearClaseJava();
+        setText("Crear Proyecto Batalla Espacial");
+        setDescription(ActionMessages.OpenNewJavaProjectWizardAction_description);
+        setToolTipText(ActionMessages.OpenNewJavaProjectWizardAction_tooltip);
+        setImageDescriptor(JavaPluginImages.DESC_WIZBAN_NEWJPRJ);
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IJavaHelpContextIds.OPEN_PROJECT_WIZARD_ACTION);
+        setShell(JavaPlugin.getActiveWorkbenchShell());
     }
 
+    @Override
+    protected final INewWizard createWizard() throws CoreException {
+        return new AsistenteCrearProyectoBatallaEspacial();
+    }
+
+    @Override
+    protected boolean doCreateProjectFirstOnEmptyWorkspace(Shell shell) {
+        return true;
+    }
 }
+
