@@ -87,24 +87,25 @@
                 <or/>
               </enablement>
         </actionProvider>
-        <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto" 
+        <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava" 
+            menuGroupId="group.observatorio">
+            <enablement>
+                <or/>
+             </enablement>
+        </commonWizard>
+        <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava" 
+            menuGroupId="group.observatorio">
+            <enablement>
+                <or/>
+             </enablement>
+        </commonWizard>
+        <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial" 
             menuGroupId="group.observatorio">
             <enablement>
                 <or/>
              </enablement>
         </commonWizard>
    </extension>
-   <!--
-   <extension
-         point="org.eclipse.ui.navigator.navigatorContent">
-      <actionProvider 
-            class="ar.com.comunidadesfera.observatorio.jdt.ProveedorDeAccionesNulas"
-            id="org.eclipse.ui.navigator.navigatorContent.Acciones"
-            overrides="org.eclipse.jdt.ui.navigator.actions.RefactorActions"
-            priority="highest">
-     </actionProvider>
-   </extension>
-   -->
    <extension point="org.eclipse.ui.newWizards">
       <category
             id="ar.com.comunidadesfera.observatorio.asistentes.categoria"
@@ -113,7 +114,7 @@
       <wizard
             category="ar.com.comunidadesfera.observatorio.asistentes.categoria"
             class="ar.com.comunidadesfera.observatorio.jdt.AsistenteCrearClaseJava"
-            id="ar.com.comunidadesfera.observatorio.asistentes.crearClase"
+            id="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava"
             name="Crear Clase"
             icon="iconos/asistente-crear-clase.gif" 
             finalPerspective="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
@@ -123,8 +124,19 @@
       <wizard
             category="ar.com.comunidadesfera.observatorio.asistentes.categoria"
             class="ar.com.comunidadesfera.observatorio.jdt.AsistenteCrearProyectoJava"
-            id="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto"
-            name="Crear Proyecto"
+            id="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava"
+            name="Crear Proyecto Java"
+            icon="iconos/asistente-crear-proyecto.gif" 
+            finalPerspective="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            preferredPerspectives="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
+            project="true"
+            hasPages="true">
+      </wizard>
+      <wizard
+            category="ar.com.comunidadesfera.observatorio.asistentes.categoria"
+            class="ar.com.comunidadesfera.observatorio.jdt.AsistenteCrearProyectoBatallaEspacial"
+            id="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial"
+            name="Crear Proyecto Batalla Espacial"
             icon="iconos/asistente-crear-proyecto.gif" 
             finalPerspective="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
             preferredPerspectives="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
@@ -188,8 +200,9 @@
          <viewShortcut
                id="org.eclipse.ui.views.ResourceNavigator">
          </viewShortcut>
-         <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearClase"/>
-         <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto"/>
+         <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava"/>
+         <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava"/>
+         <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial"/>
          <!--
          <hiddenMenuItem id="navigate"/>
          <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
