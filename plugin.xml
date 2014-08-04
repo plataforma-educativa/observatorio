@@ -31,13 +31,17 @@
             viewerId="ar.com.comunidadesfera.observatorio.explorador">
          <options>
             <property
-                  name="org.eclipse.ui.navigator.hideLinkWithEditorAction"
-                  value="false">
-            </property>
+                  name="org.eclipse.ui.navigator.hideAvailableExtensionsTab"
+                  value="true"/>
             <property
                   name="org.eclipse.ui.navigator.hideAvailableCustomizationsDialog"
-                  value="false">
-            </property>
+                  value="true"/>
+            <property
+                  name="org.eclipse.ui.navigator.hideLinkWithEditorAction"
+                  value="true"/>
+            <property
+                  name="org.eclipse.ui.navigator.hideCollapseAllAction"
+                  value="true"/>
          </options>
          <popupMenu allowsPlatformContributions="false" id="ar.com.comunidadesfera.observatorio.explorador.popupMenu">
                <insertionPoint name="group.observatorio" separator="true"/>
@@ -137,7 +141,7 @@
             class="ar.com.comunidadesfera.observatorio.jdt.AsistenteCrearProyectoBatallaEspacial"
             id="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial"
             name="Crear Proyecto Batalla Espacial"
-            icon="iconos/asistente-crear-proyecto.gif" 
+            icon="iconos/asistente-crear-proyecto-batalla-espacial.png" 
             finalPerspective="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
             preferredPerspectives="ar.com.comunidadesfera.observatorio.PerspectivaObservatorio"
             project="true"
@@ -216,27 +220,31 @@
             id="ar.com.comunidadesfera.observatorio.BatallaEspacial">
       </classpathContainerInitializer>
    </extension>
-   <!--
    <extension point="org.eclipse.ui.menus">
       <menuContribution 
-         allPopups="false"
-         locationURI="popup:ar.com.comunidadesfera.observatorio.explorador.popupMenu">
+         allPopups="false" 
+         locationURI="toolbar:ar.com.comunidadesfera.observatorio.explorador?after=additions ">
+        <command commandId="org.eclipse.ui.newWizard" 
+                 label="Crear Clase" icon="iconos/asistente-crear-proyecto-batalla-espacial.png"
+                 id="ar.com.comunidadesfera.observatorio.comandos.crearProyectoBatallaEspacial"
+                 >
+            <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial" />
+        </command>   
         <command commandId="org.eclipse.ui.newWizard" 
                  label="Crear Clase" icon="iconos/asistente-crear-proyecto.gif"
-                 id="ar.com.comunidadesfera.observatorio.comandos.crearProyecto"
+                 id="ar.com.comunidadesfera.observatorio.comandos.crearProyectoJava"
                  >
-            <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearProyecto" />
-         </command>   
+            <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava" />
+        </command>   
         <command commandId="org.eclipse.ui.newWizard" 
                  label="Crear Clase" icon="iconos/asistente-crear-clase.gif"
-                 id="ar.com.comunidadesfera.observatorio.comandos.crearClase"
+                 id="ar.com.comunidadesfera.observatorio.comandos.crearClaseJava"
                  >
-            <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearClase" />
-         </command>
-            <separator
-                name="observatorio.separator1" visible="true">
-            </separator>
-   </menuContribution>
+            <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava" />
+        </command>
+         
+      </menuContribution>
    </extension>
+   <!--
    -->
 </plugin>
