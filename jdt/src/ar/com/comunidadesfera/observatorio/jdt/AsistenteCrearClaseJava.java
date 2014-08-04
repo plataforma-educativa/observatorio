@@ -44,6 +44,7 @@ public class AsistenteCrearClaseJava extends NewElementWizard {
             fPage.setWizard(this);
             fPage.init(getSelection());
         }
+
         addPage(fPage);
     }
 

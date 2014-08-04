@@ -12,6 +12,7 @@
  *******************************************************************************/
 package ar.com.comunidadesfera.observatorio.jdt;
 
+import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.internal.ui.IJavaHelpContextIds;
 import org.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.jface.dialogs.Dialog;
@@ -45,4 +46,10 @@ public class PaginaAsistenteCrearClaseJava extends NewClassWizardPage {
         PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, IJavaHelpContextIds.NEW_CLASS_WIZARD_PAGE);
     }
     
+    @Override
+    public int getModifiers() {
+
+        /* sin utilizar modificadores de acceso se minimiza la definición de la clase */
+        return Flags.AccDefault;
+    }
 }
