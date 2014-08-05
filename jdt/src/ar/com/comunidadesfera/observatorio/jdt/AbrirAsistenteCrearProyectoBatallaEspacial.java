@@ -39,7 +39,11 @@ public class AbrirAsistenteCrearProyectoBatallaEspacial extends AbstractOpenWiza
 
     @Override
     protected final INewWizard createWizard() throws CoreException {
-        return new AsistenteCrearProyectoBatallaEspacial();
+
+        return (INewWizard) PlatformUI.getWorkbench()
+                                .getNewWizardRegistry()
+                                .findWizard("ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial") //$NON-NLS-1$
+                                .createWizard();
     }
 
     @Override

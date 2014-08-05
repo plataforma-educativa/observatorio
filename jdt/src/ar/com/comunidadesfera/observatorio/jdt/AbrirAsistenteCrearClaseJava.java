@@ -34,13 +34,16 @@ public class AbrirAsistenteCrearClaseJava extends AbstractOpenWizardAction {
         setToolTipText(ActionMessages.OpenNewClassWizardAction_tooltip);
         setImageDescriptor(JavaPluginImages.DESC_WIZBAN_NEWCLASS);
         PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IJavaHelpContextIds.OPEN_CLASS_WIZARD_ACTION);
-        setShell(JavaPlugin.getActiveWorkbenchShell());        
+        setShell(JavaPlugin.getActiveWorkbenchShell());
     }
     
     @Override
     protected INewWizard createWizard() throws CoreException {
         
-        return new AsistenteCrearClaseJava();
+        return (INewWizard) PlatformUI.getWorkbench()
+                                .getNewWizardRegistry()
+                                .findWizard("ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava") //$NON-NLS-1$
+                                .createWizard();
     }
 
 }

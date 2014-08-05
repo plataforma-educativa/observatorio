@@ -40,7 +40,11 @@ public class AbrirAsistenteCrearProyectoJava extends AbstractOpenWizardAction {
 
     @Override
     protected final INewWizard createWizard() throws CoreException {
-        return new AsistenteCrearProyectoJava();
+        
+        return (INewWizard) PlatformUI.getWorkbench()
+                                .getNewWizardRegistry()
+                                .findWizard("ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava") //$NON-NLS-1$
+                                .createWizard();
     }
 
     @Override
