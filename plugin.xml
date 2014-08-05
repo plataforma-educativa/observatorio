@@ -95,33 +95,13 @@
               id="ar.com.comunidadesfera.observatorio.acciones.sobrePaquetes"
               priority="highest">
               <enablement>
-                <with variable="selection">
-                    <and>
-                        <count value="1"/>
-                        <iterate operator="or" ifEmpty="false">
-                           <or>
-                              <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
-                              <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
-                           </or>  
-                        </iterate>  
-                    </and>
-                </with>  
+                <reference definitionId="ar.com.comunidadesfera.observatorio.expresion.crearClaseJava"/>              
               </enablement>
         </actionProvider>
         <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava"
             menuGroupId="group.observatorio">
             <enablement>
-                <with variable="selection">
-                    <and>
-                        <count value="1"/>
-                        <iterate operator="or" ifEmpty="false">
-                           <or>
-                              <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
-                              <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
-                           </or>  
-                        </iterate>  
-                    </and>
-                 </with>  
+                <reference definitionId="ar.com.comunidadesfera.observatorio.expresion.crearClaseJava"/>
              </enablement>
         </commonWizard>
         <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava" 
@@ -269,19 +249,25 @@
                  tooltip="Crear Clase Java">
             <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava" />
             <visibleWhen checkEnabled="false">
-                  <with variable="selection">
-                     <and>
-                         <count value="1"/>
-                         <iterate operator="or" ifEmpty="false">
-                            <or>
-                               <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
-                               <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
-                            </or>  
-                         </iterate>  
-                     </and>
-                  </with>  
+                <reference definitionId="ar.com.comunidadesfera.observatorio.expresion.crearClaseJava"/>
             </visibleWhen>
         </command>
       </menuContribution>
    </extension>
+   <extension point="org.eclipse.core.expressions.definitions">
+     <definition id="ar.com.comunidadesfera.observatorio.expresion.crearClaseJava">
+          <with variable="selection">
+             <and>
+                 <count value="1"/>
+                 <iterate operator="or" ifEmpty="false">
+                    <or>
+                       <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+                       <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+                    </or>  
+                 </iterate>  
+             </and>
+          </with>  
+     </definition>
+   </extension>
+
 </plugin>
