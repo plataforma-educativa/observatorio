@@ -68,7 +68,6 @@
             <contentExtension pattern="org.eclipse.jdt.java.ui.filters.*"/>
          	<contentExtension pattern="org.eclipse.jdt.java.ui.javaLinkHelper" />
             <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
-            <contentExtension pattern="ar.com.comunidadesfera.observatorio.acciones" />
             <contentExtension pattern="ar.com.comunidadesfera.observatorio.asistentes.*" />
          </includes>
          <excludes>
@@ -78,23 +77,51 @@
       <viewerActionBinding
             viewerId="ar.com.comunidadesfera.observatorio.explorador">
             <includes>
-                <actionExtension pattern="ar.com.comunidadesfera.observatorio.acciones"/>
+                <actionExtension pattern="ar.com.comunidadesfera.observatorio.acciones.*"/>
             </includes>
       </viewerActionBinding>
    </extension>
    <extension point="org.eclipse.ui.navigator.navigatorContent">
         <actionProvider
               class="ar.com.comunidadesfera.observatorio.ProveedorDeAccionesObservatorio" 
-              id="ar.com.comunidadesfera.observatorio.acciones"
+              id="ar.com.comunidadesfera.observatorio.acciones.global"
               priority="highest">
               <enablement>
                 <or/>
               </enablement>
         </actionProvider>
-        <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava" 
+        <actionProvider
+              class="ar.com.comunidadesfera.observatorio.ProveedorDeAccionesSobrePaquetes" 
+              id="ar.com.comunidadesfera.observatorio.acciones.sobrePaquetes"
+              priority="highest">
+              <enablement>
+                <with variable="selection">
+                    <and>
+                        <count value="1"/>
+                        <iterate operator="or" ifEmpty="false">
+                           <or>
+                              <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+                              <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+                           </or>  
+                        </iterate>  
+                    </and>
+                </with>  
+              </enablement>
+        </actionProvider>
+        <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava"
             menuGroupId="group.observatorio">
             <enablement>
-                <or/>
+                <with variable="selection">
+                    <and>
+                        <count value="1"/>
+                        <iterate operator="or" ifEmpty="false">
+                           <or>
+                              <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+                              <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+                           </or>  
+                        </iterate>  
+                    </and>
+                 </with>  
              </enablement>
         </commonWizard>
         <commonWizard type="new" wizardId="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava" 
@@ -209,7 +236,7 @@
          <newWizardShortcut id="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial"/>
          <!--
          <hiddenMenuItem id="navigate"/>
-         <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
+         <hiddenMenuItem id="org.eclipse.ui.run"/>
          -->
       </perspectiveExtension>
    </extension>
@@ -225,26 +252,36 @@
          allPopups="false" 
          locationURI="toolbar:ar.com.comunidadesfera.observatorio.explorador?after=additions ">
         <command commandId="org.eclipse.ui.newWizard" 
-                 label="Crear Clase" icon="iconos/asistente-crear-proyecto-batalla-espacial.png"
+                 label="Crear Proyecto Batalla Espacial" icon="iconos/asistente-crear-proyecto-batalla-espacial.png"
                  id="ar.com.comunidadesfera.observatorio.comandos.crearProyectoBatallaEspacial"
-                 >
+                 tooltip="Crear Proyecto Batalla Espacial">
             <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoBatallaEspacial" />
         </command>   
         <command commandId="org.eclipse.ui.newWizard" 
-                 label="Crear Clase" icon="iconos/asistente-crear-proyecto.gif"
+                 label="Crear Proyecto Java" icon="iconos/asistente-crear-proyecto.gif"
                  id="ar.com.comunidadesfera.observatorio.comandos.crearProyectoJava"
-                 >
+                 tooltip="Crear Proyecto Java">
             <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearProyectoJava" />
         </command>   
         <command commandId="org.eclipse.ui.newWizard" 
-                 label="Crear Clase" icon="iconos/asistente-crear-clase.gif"
+                 label="Crear Clase Java" icon="iconos/asistente-crear-clase.gif"
                  id="ar.com.comunidadesfera.observatorio.comandos.crearClaseJava"
-                 >
+                 tooltip="Crear Clase Java">
             <parameter name="newWizardId" value="ar.com.comunidadesfera.observatorio.asistentes.crearClaseJava" />
+            <visibleWhen checkEnabled="false">
+                  <with variable="selection">
+                     <and>
+                         <count value="1"/>
+                         <iterate operator="or" ifEmpty="false">
+                            <or>
+                               <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+                               <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+                            </or>  
+                         </iterate>  
+                     </and>
+                  </with>  
+            </visibleWhen>
         </command>
-         
       </menuContribution>
    </extension>
-   <!--
-   -->
 </plugin>

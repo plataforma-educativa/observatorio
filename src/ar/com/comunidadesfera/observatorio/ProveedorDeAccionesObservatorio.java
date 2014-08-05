@@ -9,7 +9,6 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 
-import ar.com.comunidadesfera.observatorio.jdt.AbrirAsistenteCrearClaseJava;
 import ar.com.comunidadesfera.observatorio.jdt.AbrirAsistenteCrearProyectoBatallaEspacial;
 import ar.com.comunidadesfera.observatorio.jdt.AbrirAsistenteCrearProyectoJava;
 
@@ -19,26 +18,29 @@ public class ProveedorDeAccionesObservatorio extends CommonActionProvider {
     
     private boolean contribute = false;
 
-    private List<IAction> actions = new LinkedList<IAction>();
+    protected List<IAction> actions = new LinkedList<IAction>();
 	
 	@Override
 	public void init(ICommonActionExtensionSite aSite) {
 	    
-        if (aSite.getViewSite() instanceof ICommonViewerWorkbenchSite) {
-
-            actions.add(new AbrirAsistenteCrearProyectoBatallaEspacial());
-            actions.add(new AbrirAsistenteCrearProyectoJava());
-            actions.add(new AbrirAsistenteCrearClaseJava());
-            contribute = true;
+	    contribute = (aSite.getViewSite() instanceof ICommonViewerWorkbenchSite);
+	    
+        if (contribute) {
+            addActions();
         }
 	}
 
-
+	protected void addActions() {
+	    
+        actions.add(new AbrirAsistenteCrearProyectoBatallaEspacial());
+        actions.add(new AbrirAsistenteCrearProyectoJava());
+	}
+	
 	@Override
 	public void fillContextMenu(IMenuManager menu) {
 		
 		if (contribute) {
-		    
+
 		    for (IAction action : actions) {
 		        
 		        menu.appendToGroup(GROUP, action);
