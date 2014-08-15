@@ -33,9 +33,11 @@ END_COPYRIGHT_BLOCK*/
 
 package edu.rice.cs.drjava.model.repl;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.List;
 
 import koala.dynamicjava.interpreter.AbstractTypeChecker;
@@ -610,6 +612,12 @@ public class DynamicJavaAdapter implements JavaInterpreter {
     // use the cpm to get the resource for the specified name
     return cpm.getClassLoader().getResource(name);
     //return classLoader.getResource(name);
+  }
+
+  /* Agregado como parche para que el ClassLoader también delegue en el ClasspathManager este método */ 
+  public Enumeration<URL> getResources(String name) throws IOException {
+  
+    return cpm.getClassLoader().getResources(name);
   }
   
   protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException{

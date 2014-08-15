@@ -33,8 +33,9 @@
 
 package edu.rice.cs.drjava.model;
 
-import java.lang.ClassLoader;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Enumeration;
 
 import edu.rice.cs.drjava.model.repl.WrapperClassLoader;
 
@@ -78,6 +79,29 @@ public class BrainClassLoader extends ClassLoader {
     if (resource != null) return resource;
 
     return resource;
+  }
+  
+  /* Parche agregado para que también resuelva correctamente la delegación del método */
+  public Enumeration<URL> getResources(String name) throws IOException {
+    Enumeration<URL> resources = projectCL.getResources(name);
+    if (resources != null && resources.hasMoreElements()) return resources;
+  
+    resources = buildCL.getResources(name);
+    if (resources != null && resources.hasMoreElements()) return resources;
+  
+    resources = projectFilesCL.getResources(name);
+    if (resources != null && resources.hasMoreElements()) return resources;
+  
+    resources = externalFilesCL.getResources(name);
+    if (resources != null && resources.hasMoreElements()) return resources;
+  
+    resources = extraCL.getResources(name);
+    if (resources != null && resources.hasMoreElements()) return resources;
+
+    resources = systemCL.getResources(name);
+    if (resources != null && resources.hasMoreElements()) return resources;
+
+    return resources;
   }
 }
 

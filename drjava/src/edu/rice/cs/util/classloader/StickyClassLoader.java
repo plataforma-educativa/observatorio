@@ -33,9 +33,10 @@
 
 package edu.rice.cs.util.classloader;
 
-import java.util.Arrays;
-import java.net.URL;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Enumeration;
 
 import edu.rice.cs.util.FileOps;
 
@@ -106,6 +107,19 @@ public class StickyClassLoader extends ClassLoader {
     //System.err.println("resource: " + name + " --> " + resource);
     return resource;
   }
+  
+  /* Agregado como parche para que el StickyClassLoader también resuelva el método delegando 
+   * en el ClassLoader correspodiente */
+  public Enumeration<URL> getResources(String name) throws IOException {
+
+    Enumeration<URL> resources = _newLoader.getResources(name);
+    if (resources == null) {
+       resources = getParent().getResources(name);
+    }
+      
+    return resources;
+  }
+
 
   /** Loads the given class, delegating first to the new class loader and then second to the old class loader. The 
    *  returned Class object will have its ClassLoader ({@link Class#getClassLoader}) set to be this. This is very
@@ -176,7 +190,21 @@ public class StickyClassLoader extends ClassLoader {
       
       byte[] data = FileOps.readStreamAsBytes(resource.openStream());
       try {
-        return defineClass(name, data, 0, data.length);
+          
+        Class clazz = defineClass(name, data, 0, data.length);
+        
+        /* Parche para que además de definir la Class defina el paquete al que pertenece si aún no ha sido
+         * definido previamente */
+        if (clazz.getPackage() == null) {
+
+          int packageNameLastIndex = name.lastIndexOf('.');
+              
+          if (packageNameLastIndex > 0 && clazz.getPackage() == null) {
+            this.definePackage(name.substring(0, packageNameLastIndex), null, null, null, null, null, null, null);
+                  
+          }
+        }
+        return clazz;
       }
       catch (Error t) {
         /*
