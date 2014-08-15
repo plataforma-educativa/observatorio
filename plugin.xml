@@ -24,15 +24,6 @@
             name="Explorador"
             restorable="true">
       </view>
-      <!--
-      <view
-            name="DrJava"
-            icon="iconos/observatorio.png"
-            category="ar.com.comunidadesfera.observatorio.categoria"
-            class="edu.rice.cs.drjava.plugins.eclipse.views.InteractionsView"
-            id="ar.com.comunidadesfera.observatorio.drjava">
-      </view>
-      -->      
    </extension>
    <extension
          point="org.eclipse.ui.navigator.viewer">

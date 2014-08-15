@@ -4,7 +4,7 @@ Bundle-Name: Drjava Plug-in
 Bundle-SymbolicName: edu.rice.cs.drjava; singleton:=true
 Bundle-Version: 0.9.8
 Bundle-Vendor: Rice University
-Bundle-ClassPath: drjava-eclipse.jar
+Bundle-ClassPath: drjava-eclipse.jar,./classes
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.debug.ui,
