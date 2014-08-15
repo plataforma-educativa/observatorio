@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.navigator.resources,
  org.eclipse.ui.ide,
  org.eclipse.jdt.core,
- org.eclipse.jdt.junit
+ edu.rice.cs.drjava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: ar.com.comunidadesfera.observatorio;
@@ -25,5 +25,5 @@ Export-Package: ar.com.comunidadesfera.observatorio;
    org.eclipse.jface.wizard,
    org.eclipse.jface.viewers,
    org.eclipse.ui.plugin"
-Import-Package: org.eclipse.core.resources,
-   ar.com.comunidadesfera.observatorio.jdt
+Import-Package: ar.com.comunidadesfera.observatorio.jdt,
+ org.eclipse.core.resources
