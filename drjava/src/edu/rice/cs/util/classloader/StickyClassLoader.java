@@ -144,7 +144,10 @@ public class StickyClassLoader extends ClassLoader {
     
     if (name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("sun.") || 
         name.startsWith("com.sun.") || name.startsWith("org.omg.") || name.startsWith("sunw.") || 
-        name.startsWith("org.w3c.dom.") || name.startsWith("org.xml.sax.") || name.startsWith("net.jini.")) {
+        name.startsWith("org.w3c.dom.") || name.startsWith("org.xml.sax.") || name.startsWith("net.jini.") ||
+        
+        /* Parche para incluir javafx. como paquete a ser cargado desde el SystemClassLoader */
+        name.startsWith("javafx.")) {
       
       try { clazz = getSystemClassLoader().loadClass(name); }
       catch (ClassNotFoundException e) {
