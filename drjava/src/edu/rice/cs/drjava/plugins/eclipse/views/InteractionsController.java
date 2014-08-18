@@ -510,7 +510,8 @@ public class InteractionsController {
     };
     resetInteractionsAction.setText("Reiniciar Intérprete");
     resetInteractionsAction.setToolTipText("Reinicia las interacciones con el Intérprete DrJava.");
-    resetInteractionsAction.setImageDescriptor(_getStandardIcon(ActionFactory.DELETE, window));
+    //resetInteractionsAction.setImageDescriptor( _getStandardIcon(ActionFactory.REFRESH, window));
+    resetInteractionsAction.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(), "/icons/reset.png"));
     _view.addMenuItem(resetInteractionsAction);
     _view.addToolbarItem(resetInteractionsAction);
 
