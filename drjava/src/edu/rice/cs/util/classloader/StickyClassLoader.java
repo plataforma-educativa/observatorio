@@ -100,7 +100,7 @@ public class StickyClassLoader extends ClassLoader {
    *  @param name Name of resource to find
    *  @return URL of the resource if found/accessible, or null if not.
    */
-  public URL getResource(String name) {
+  public synchronized URL getResource(String name) {
     URL resource = _newLoader.getResource(name);
     if (resource == null) resource = getParent().getResource(name);
 
@@ -110,7 +110,7 @@ public class StickyClassLoader extends ClassLoader {
   
   /* Agregado como parche para que el StickyClassLoader también resuelva el método delegando 
    * en el ClassLoader correspodiente */
-  public Enumeration<URL> getResources(String name) throws IOException {
+  public synchronized Enumeration<URL> getResources(String name) throws IOException {
 
     Enumeration<URL> resources = _newLoader.getResources(name);
     if (resources == null) {
@@ -136,9 +136,10 @@ public class StickyClassLoader extends ClassLoader {
    *  </LI>
    *  </OL>
    */
-  protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+  protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
     // check if it's already loaded in the JVM!
     Class<?> clazz;
+
     clazz = findLoadedClass(name);
     if (clazz != null) return clazz;
     
