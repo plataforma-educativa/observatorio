@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
@@ -32,7 +33,10 @@ public class ProveedorDeAccionesObservatorio extends CommonActionProvider {
 
 	protected void addActions() {
 	    
-        actions.add(new AbrirAsistenteCrearProyectoBatallaEspacial());
+	    IAction abrirAsistenteCrearProyectoBatallaEspacial = new AbrirAsistenteCrearProyectoBatallaEspacial();
+	    abrirAsistenteCrearProyectoBatallaEspacial.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(), "/iconos/asistente-crear-proyecto-batalla-espacial.png"));
+	    
+        actions.add(abrirAsistenteCrearProyectoBatallaEspacial);
         actions.add(new AbrirAsistenteCrearProyectoJava());
 	}
 	

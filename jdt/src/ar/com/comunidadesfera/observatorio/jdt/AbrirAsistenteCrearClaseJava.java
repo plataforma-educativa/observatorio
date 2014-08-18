@@ -32,7 +32,7 @@ public class AbrirAsistenteCrearClaseJava extends AbstractOpenWizardAction {
         setText("Crear Clase");
         setDescription(ActionMessages.OpenNewClassWizardAction_description);
         setToolTipText(ActionMessages.OpenNewClassWizardAction_tooltip);
-        setImageDescriptor(JavaPluginImages.DESC_WIZBAN_NEWCLASS);
+        setImageDescriptor(JavaPluginImages.DESC_TOOL_NEWCLASS);
         PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IJavaHelpContextIds.OPEN_CLASS_WIZARD_ACTION);
         setShell(JavaPlugin.getActiveWorkbenchShell());
     }

@@ -15,7 +15,6 @@ package ar.com.comunidadesfera.observatorio.jdt;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.internal.ui.IJavaHelpContextIds;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.actions.ActionMessages;
 import org.eclipse.jdt.ui.actions.AbstractOpenWizardAction;
 import org.eclipse.swt.widgets.Shell;
@@ -32,7 +31,6 @@ public class AbrirAsistenteCrearProyectoBatallaEspacial extends AbstractOpenWiza
         setText("Crear Proyecto Batalla Espacial");
         setDescription(ActionMessages.OpenNewJavaProjectWizardAction_description);
         setToolTipText(ActionMessages.OpenNewJavaProjectWizardAction_tooltip);
-        setImageDescriptor(JavaPluginImages.DESC_WIZBAN_NEWJPRJ);
         PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IJavaHelpContextIds.OPEN_PROJECT_WIZARD_ACTION);
         setShell(JavaPlugin.getActiveWorkbenchShell());
     }

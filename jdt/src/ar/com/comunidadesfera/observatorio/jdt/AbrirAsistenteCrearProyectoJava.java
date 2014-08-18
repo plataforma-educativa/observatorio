@@ -32,7 +32,7 @@ public class AbrirAsistenteCrearProyectoJava extends AbstractOpenWizardAction {
         setText("Crear Proyecto Java");
         setDescription(ActionMessages.OpenNewJavaProjectWizardAction_description);
         setToolTipText(ActionMessages.OpenNewJavaProjectWizardAction_tooltip);
-        setImageDescriptor(JavaPluginImages.DESC_WIZBAN_NEWJPRJ);
+        setImageDescriptor(JavaPluginImages.DESC_TOOL_NEWPROJECT);
         PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IJavaHelpContextIds.OPEN_PROJECT_WIZARD_ACTION);
         setShell(JavaPlugin.getActiveWorkbenchShell());
     }
