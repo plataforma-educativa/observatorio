@@ -41,7 +41,9 @@ package edu.rice.cs.drjava.plugins.eclipse.views;
 
 import org.eclipse.ui.IActionBars;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
@@ -90,6 +92,11 @@ public class InteractionsView extends ViewPart {
    * A runnable command to sound a beep as an alert.
    */
   protected Runnable _beep;
+
+  /**
+   * Toolbar for this view.
+   */
+  protected IToolBarManager _toolbar;
 
   /**
    * Toolbar menu for this view.
@@ -174,6 +181,7 @@ public class InteractionsView extends ViewPart {
 	 new CutAction(_styledText, _clipboard));
     */
 
+    _toolbar = _bars.getToolBarManager();
     _toolbarMenu = _bars.getMenuManager();
     _contextMenu = new MenuManager("#PopupMenu");
     Menu menu = _contextMenu.createContextMenu(_styledText);
@@ -305,6 +313,11 @@ public class InteractionsView extends ViewPart {
    */
   public void addContextMenuItem(Action action) {
     _contextMenu.add(action);
+  }
+  
+  /** Add a top-level action to the toolbar. */
+  public void addToolbarItem(IAction action) {
+    _toolbar.add(action);
   }
     	    
 }

@@ -39,46 +39,48 @@ END_COPYRIGHT_BLOCK*/
 
 package edu.rice.cs.drjava.plugins.eclipse.views;
 
-import org.eclipse.jface.action.Action;
+import java.net.URL;
+import java.util.Vector;
+
+
+
 //import org.eclipse.jface.preference.*;
 import org.eclipse.core.runtime.Preferences;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.IInputValidator;
+//import org.eclipse.jface.util.*;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
 //import org.eclipse.core.runtime.Preferences.*;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.jface.resource.JFaceResources;
-//import org.eclipse.jface.util.*;
-import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.dialogs.IInputValidator;
-import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.custom.VerifyKeyListener;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.SWT;
-
-import edu.rice.cs.drjava.plugins.eclipse.EclipsePlugin;
-import edu.rice.cs.drjava.plugins.eclipse.DrJavaConstants;
-import edu.rice.cs.drjava.plugins.eclipse.repl.EclipseInteractionsModel;
-
-import edu.rice.cs.drjava.model.repl.InteractionsListener;
-import edu.rice.cs.drjava.model.repl.InteractionsDocument;
-import edu.rice.cs.drjava.model.repl.InputListener;
-import edu.rice.cs.util.text.ConsoleDocument;
-import edu.rice.cs.util.text.SWTDocumentAdapter;
-import edu.rice.cs.util.text.SWTDocumentAdapter.SWTStyle;
-import edu.rice.cs.util.text.SwingDocument;
-import edu.rice.cs.util.StringOps;
-
-import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.actions.ActionFactory;
 
-
-import java.util.Vector;
-import java.net.URL;
+import edu.rice.cs.drjava.model.repl.InputListener;
+import edu.rice.cs.drjava.model.repl.InteractionsDocument;
+import edu.rice.cs.drjava.model.repl.InteractionsListener;
+import edu.rice.cs.drjava.plugins.eclipse.DrJavaConstants;
+import edu.rice.cs.drjava.plugins.eclipse.EclipsePlugin;
+import edu.rice.cs.drjava.plugins.eclipse.repl.EclipseInteractionsModel;
+import edu.rice.cs.util.text.ConsoleDocument;
+import edu.rice.cs.util.text.SWTDocumentAdapter;
+import edu.rice.cs.util.text.SWTDocumentAdapter.SWTStyle;
 /**
  * This class installs listeners and actions between an InteractionsDocument
  * in the model and an InteractionsPane in the view.
@@ -416,10 +418,10 @@ public class InteractionsController {
 
     public void interpreterExited(int status) {
       if (_promptIfExited) {
-        String title = "Interactions terminated by System.exit(" + status + ")";
-        String msg = "The interactions window was terminated by a call " +
-          "to System.exit(" + status + ").\n" +
-          "The interactions window will now be restarted.";
+        String title = "Intérprete terminado";
+        String msg = "El Intérprete DrJava fue terminado tras invocar " +
+          "System.exit(" + status + ").\n" +
+          "El Intérprete será reiniciado.";
         _view.showInfoDialog(title, msg);
       }
     }
@@ -434,8 +436,8 @@ public class InteractionsController {
     }
 
     public void interpreterResetFailed(Throwable t) {
-      String title = "Interactions Could Not Reset";
-      String msg = "The interactions window could not be reset:\n" +
+      String title = "El Intérprete no puedo ser reiniciado";
+      String msg = "El Intérprete DrJava no puedo ser reiniciado:\n" +
         t.toString();
       _view.showInfoDialog(title, msg);
       interpreterReady();
@@ -479,6 +481,8 @@ public class InteractionsController {
    * Adds actions to the toolbar menu.
    */
   protected void _setupMenu() {
+
+      IWorkbenchWindow window = _view.getSite().getWorkbenchWindow();
       final Action copyAction = new CopyAction(_view.getTextPane(), _clipboard);
       copyAction.setEnabled(false);
 
@@ -497,20 +501,22 @@ public class InteractionsController {
 			 
     Action resetInteractionsAction = new Action() {
       public void run() {
-        String title = "Confirm Reset Interactions";
-        String message = "Are you sure you want to reset the Interactions Pane?";
+        String title = "Confirmar el Reinicio del Intérprete";
+        String message = "¿Está seguro que quiere reiniciar el Intérprete DrJava?";
         if (!_promptToReset || _view.showConfirmDialog(title, message)) {
           _model.resetInterpreter();
         }
       }
     };
-    resetInteractionsAction.setText("Reset Interactions");
-    resetInteractionsAction.setToolTipText("Resets the Interactions Pane");
+    resetInteractionsAction.setText("Reiniciar Intérprete");
+    resetInteractionsAction.setToolTipText("Reinicia las interacciones con el Intérprete DrJava.");
+    resetInteractionsAction.setImageDescriptor(_getStandardIcon(ActionFactory.DELETE, window));
     _view.addMenuItem(resetInteractionsAction);
+    _view.addToolbarItem(resetInteractionsAction);
 
     Action showClasspathAction = new Action() {
       public void run() {
-        String title = "Interpreter Classpath";
+        String title = "Classpath de DrJava";
         StringBuffer cpBuf = new StringBuffer();
         Vector<URL> classpathElements = _model.getClasspath();
         for(int i = 0; i < classpathElements.size(); i++) {
@@ -522,11 +528,21 @@ public class InteractionsController {
         _view.showInfoDialog(title, cpBuf.toString());
       }
     };
-    showClasspathAction.setText("Show Interpreter Classpath");
-    showClasspathAction.setToolTipText("Shows the classpath used in the interactions pane.");
+    showClasspathAction.setText("Mostrar Classpath");
+    showClasspathAction.setToolTipText("Muestra el classpath usado por DrJava.");
     _view.addMenuItem(showClasspathAction);
   }
 
+  /**
+   * Get the icon used by a standard action.  (There may be a better way to get to standard icons,
+   * but I haven't found it.)  Note that many standard ActionFactories don't produce actions with icons.
+   */
+  private ImageDescriptor _getStandardIcon(ActionFactory f, IWorkbenchWindow w) {
+    ActionFactory.IWorkbenchAction a = f.create(w);
+    try { return a.getImageDescriptor(); }
+    finally { a.dispose(); }
+  }
+  
   /**
    * Listener to perform the correct action when a key is pressed.
    */
@@ -738,7 +754,7 @@ public class InteractionsController {
 	public CopyAction(StyledText text, Clipboard cp) { 
 	    _text = text;
 	    _clipboard = cp;
-	    setText("Copy");
+	    setText("Copiar");
 	    setAccelerator(SWT.CTRL | 'C');
 	}
 	
@@ -763,7 +779,7 @@ public class InteractionsController {
 	public PasteAction(StyledText text, Clipboard cp) { 
 	    _text = text;
 	    _clipboard = cp;
-	    setText("Paste");
+	    setText("Pegar");
 	    setAccelerator(SWT.CTRL | 'V');
 	}
 	

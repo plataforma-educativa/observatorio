@@ -9,7 +9,7 @@
             id="edu.rice.cs.drjava">
       </category>
       <view
-            name="Intérprete"
+            name="Intérprete DrJava"
             icon="icons/drjava16.png"
             category="edu.rice.cs.drjava"
             class="edu.rice.cs.drjava.plugins.eclipse.views.InteractionsView"
