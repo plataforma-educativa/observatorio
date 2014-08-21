@@ -38,7 +38,7 @@
                   value="true"/>
             <property
                   name="org.eclipse.ui.navigator.hideLinkWithEditorAction"
-                  value="true"/>
+                  value="false"/>
             <property
                   name="org.eclipse.ui.navigator.hideCollapseAllAction"
                   value="true"/>
@@ -66,7 +66,7 @@
          <includes>
             <contentExtension pattern="org.eclipse.jdt.java.ui.javaContent" isRoot="true"/>
             <contentExtension pattern="org.eclipse.jdt.java.ui.filters.*"/>
-         	<contentExtension pattern="org.eclipse.jdt.java.ui.javaLinkHelper" />
+            <contentExtension pattern="org.eclipse.jdt.java.ui.javaLinkHelper" />
             <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
             <contentExtension pattern="ar.com.comunidadesfera.observatorio.asistentes.*" />
          </includes>
